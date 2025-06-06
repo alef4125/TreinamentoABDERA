@@ -1,7 +1,7 @@
 
 namespace TarefasBackEndAPI.Modelos;
 
-public class Task
+public class TaskItem
 {
     public Guid Id { get; set; }
     public string Titulo { get; set; } = string.Empty;

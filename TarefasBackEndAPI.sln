@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TarefasBackEndAPI", "TarefasBackEndAPI\TarefasBackEndAPI.csproj", "{49A7AA40-C519-4851-A81F-B10A10B6039D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TarefasBackEnd.Application", "TarefasBackEnd.Application\TarefasBackEnd.Application.csproj", "{9E5B839F-C3DE-493E-AD19-8AF168574D14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{49A7AA40-C519-4851-A81F-B10A10B6039D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49A7AA40-C519-4851-A81F-B10A10B6039D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49A7AA40-C519-4851-A81F-B10A10B6039D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E5B839F-C3DE-493E-AD19-8AF168574D14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E5B839F-C3DE-493E-AD19-8AF168574D14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E5B839F-C3DE-493E-AD19-8AF168574D14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E5B839F-C3DE-493E-AD19-8AF168574D14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
