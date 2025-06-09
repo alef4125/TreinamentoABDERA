@@ -3,9 +3,10 @@ using TarefasBackEndAPI.Data;
 using TarefasBackEndAPI.DTOs;
 using TarefasBackEndAPI.Modelos;
 
-namespace TarefasBackEndAPI.Handlers;
 
-public static class TaskHandlers
+namespace Application.Handlers.Create;
+
+public static class TaskHandler
 {
     public static async Task<IResult> CreateTask(TaskCreateDto dto, AppDbContext db)
     {
@@ -37,6 +38,24 @@ public static class TaskHandlers
         
         return Results.Ok(tarefas);
     }
-    
-    public static async 
+
+    public static async Task<IResult> GetTaskById(int id, AppDbContext db)
+    {
+        var tarefa = await db.Tarefas.FindAsync(id);
+        return tarefa is null ? Results.NotFound() : Results.Ok(tarefa);
+    }
+
+    public static async Task<IResult> UpdateStatus(int id, TaskUpdateStatusDto dto, AppDbContext db)
+    {
+        var tarefa = await db.Tarefas.FindAsync(id);
+        if (tarefa is null) return Results.NotFound();
+        
+        if (!Enum.TryParse<TaskStatus>(dto.Status, true, out var status))
+            return Results.BadRequest("Status invalido.");
+        
+        tarefa.Status = status;
+        await db.SaveChangesAsync();
+        
+        return Results.Ok(tarefa);
+    }
 }
