@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using TarefasBackEndAPI.Data;
 using TarefasBackEndAPI.DTOs;
 using TarefasBackEndAPI.Modelos;
+using TaskStatus = TarefasBackEndAPI.Modelos.TaskStatus;
 
 
 namespace Application.Handlers.Create;
@@ -18,7 +19,14 @@ public static class TaskHandler
 
         db.Tarefas.Add(task);
         await db.SaveChangesAsync();
-        return Results.Created($"/tarefas/{task.Id}", task);
+        return Results.Created($"/tarefas/{task.Id}", new TaskRealDto
+        {
+            Id = task.Id,
+            Titulo = task.Titulo,
+            Descricao = task.Descricao,
+            Status = task.Status.ToString(),
+            DataInicio = task.DataInicio
+        });
     }
 
     public static async Task<IResult> GetTasks(AppDbContext db, int page = 1, int pageSize = 10)
@@ -51,11 +59,32 @@ public static class TaskHandler
         if (tarefa is null) return Results.NotFound();
         
         if (!Enum.TryParse<TaskStatus>(dto.Status, true, out var status))
-            return Results.BadRequest("Status invalido.");
+            return Results.BadRequest("Status invalido, Valores permitidos" + string.Join(",", Enum.GetNames(typeof(TaskStatus))));
         
         tarefa.Status = status;
         await db.SaveChangesAsync();
         
-        return Results.Ok(tarefa);
+        return Results.Ok(new TaskRealDto
+        {
+            Id = tarefa.Id,
+            Titulo = tarefa.Titulo,
+            Descricao = tarefa.Descricao,
+            Status = tarefa.Status.ToString(),
+            DataInicio = tarefa.DataInicio
+        });
+        
     }
+    
+    public static async Task<IResult> DeleteTask(int id, AppDbContext db)
+    {
+        var tarefa = await db.Tarefas.FindAsync(id);
+        if (tarefa is null)
+            return Results.NotFound("Tarefa não encontrada.");
+
+        db.Tarefas.Remove(tarefa);
+        await db.SaveChangesAsync();
+    
+        return Results.NoContent();
+    }
+
 }

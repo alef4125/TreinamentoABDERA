@@ -1,4 +1,4 @@
-namespace TarefasBackEndAPI.Handlers.Create;
+namespace Application.Handlers.Create;
 
 public class TaskCommandHandler
 {
