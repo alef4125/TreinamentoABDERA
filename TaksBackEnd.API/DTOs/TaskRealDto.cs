@@ -1,6 +1,6 @@
-namespace TarefasBackEndAPI.DTOs;
+namespace Application.DTOs;
 
-public class TaskRealDto
+public class TaskDto
 {
     public int Id { get; set; }
     public string Titulo { get; set; } = string.Empty;

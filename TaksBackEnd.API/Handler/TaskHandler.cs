@@ -1,11 +1,11 @@
+using Application.Data;
+using Application.DTOs;
+using Application.Models;
 using Microsoft.EntityFrameworkCore;
-using TarefasBackEndAPI.Data;
-using TarefasBackEndAPI.DTOs;
-using TarefasBackEndAPI.Modelos;
-using TaskStatus = TarefasBackEndAPI.Modelos.TaskStatus;
+using TaskStatus = Application.Models.TaskStatus;
 
+namespace Application.Handler;
 
-namespace Application.Handlers.Create;
 
 public static class TaskHandler
 {
@@ -19,7 +19,7 @@ public static class TaskHandler
 
         db.Tarefas.Add(task);
         await db.SaveChangesAsync();
-        return Results.Created($"/tarefas/{task.Id}", new TaskRealDto
+        return Results.Created($"/tarefas/{task.Id}", new TaskDto
         {
             Id = task.Id,
             Titulo = task.Titulo,
@@ -34,7 +34,7 @@ public static class TaskHandler
         var tarefas = await db.Tarefas
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
-            .Select(t => new TaskRealDto
+            .Select(t => new TaskDto
             {
                 Id = t.Id,
                 Titulo = t.Titulo,
@@ -56,15 +56,19 @@ public static class TaskHandler
     public static async Task<IResult> UpdateStatus(int id, TaskUpdateStatusDto dto, AppDbContext db)
     {
         var tarefa = await db.Tarefas.FindAsync(id);
-        if (tarefa is null) return Results.NotFound();
-        
+        if (tarefa is null) 
+            return Results.NotFound($"Tarefa com ID {id} não encontrada");
+
         if (!Enum.TryParse<TaskStatus>(dto.Status, true, out var status))
-            return Results.BadRequest("Status invalido, Valores permitidos" + string.Join(",", Enum.GetNames(typeof(TaskStatus))));
+        {
+            var valorevalidos = string.Join(", ", Enum.GetNames(typeof(TaskStatus)));
+            return Results.BadRequest($"Status invalido. Valores permitidos: {valorevalidos}" );  
+        }
         
         tarefa.Status = status;
         await db.SaveChangesAsync();
         
-        return Results.Ok(new TaskRealDto
+        return Results.Ok(new TaskDto
         {
             Id = tarefa.Id,
             Titulo = tarefa.Titulo,

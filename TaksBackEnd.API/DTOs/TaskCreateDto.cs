@@ -1,4 +1,4 @@
-namespace TarefasBackEndAPI.DTOs;
+namespace Application.DTOs;
 
 public class TaskCreateDto
 {

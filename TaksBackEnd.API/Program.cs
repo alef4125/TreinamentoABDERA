@@ -1,6 +1,6 @@
+using Application.Data;
+using Application.Handler;
 using Microsoft.EntityFrameworkCore;
-using TarefasBackEnd.Application.Handlers;
-using TarefasBackEndAPI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
