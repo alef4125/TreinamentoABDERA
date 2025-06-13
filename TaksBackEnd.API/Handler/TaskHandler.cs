@@ -28,7 +28,6 @@ public static class TaskHandler
             DataInicio = task.DataInicio
         });
     }
-
     public static async Task<IResult> GetTasks(AppDbContext db, int page = 1, int pageSize = 10)
     {
         var tarefas = await db.Tarefas
@@ -46,13 +45,11 @@ public static class TaskHandler
         
         return Results.Ok(tarefas);
     }
-
     public static async Task<IResult> GetTaskById(int id, AppDbContext db)
     {
         var tarefa = await db.Tarefas.FindAsync(id);
         return tarefa is null ? Results.NotFound() : Results.Ok(tarefa);
     }
-
     public static async Task<IResult> UpdateStatus(int id, TaskUpdateStatusDto dto, AppDbContext db)
     {
         var tarefa = await db.Tarefas.FindAsync(id);
@@ -76,9 +73,7 @@ public static class TaskHandler
             Status = tarefa.Status.ToString(),
             DataInicio = tarefa.DataInicio
         });
-        
     }
-    
     public static async Task<IResult> DeleteTask(int id, AppDbContext db)
     {
         var tarefa = await db.Tarefas.FindAsync(id);
@@ -90,5 +85,4 @@ public static class TaskHandler
     
         return Results.NoContent();
     }
-
 }
