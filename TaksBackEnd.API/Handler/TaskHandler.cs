@@ -38,8 +38,8 @@ public static class TaskHandler
                 Id = t.Id,
                 Titulo = t.Titulo,
                 Descricao = t.Descricao,
-                Status = t.Status.ToString(),
-                DataInicio = t.DataInicio
+                DataInicio = t.DataInicio,
+                Status = t.Status.ToString()
             })
             .ToListAsync();
         
@@ -70,8 +70,8 @@ public static class TaskHandler
             Id = tarefa.Id,
             Titulo = tarefa.Titulo,
             Descricao = tarefa.Descricao,
-            Status = tarefa.Status.ToString(),
-            DataInicio = tarefa.DataInicio
+            DataInicio = tarefa.DataInicio,
+            Status = tarefa.Status.ToString()
         });
     }
     public static async Task<IResult> DeleteTask(int id, AppDbContext db)
