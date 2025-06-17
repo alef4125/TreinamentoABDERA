@@ -1,6 +1,6 @@
 namespace Application.Models;
 
-public enum TaskStatus
+public enum Status
 {
     Pendente,
     EmAndamento,

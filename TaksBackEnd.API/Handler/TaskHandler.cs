@@ -2,7 +2,6 @@ using Application.Data;
 using Application.DTOs;
 using Application.Models;
 using Microsoft.EntityFrameworkCore;
-using TaskStatus = Application.Models.TaskStatus;
 
 namespace Application.Handler;
 
@@ -56,9 +55,9 @@ public static class TaskHandler
         if (tarefa is null) 
             return Results.NotFound($"Tarefa com ID {id} não encontrada");
 
-        if (!Enum.TryParse<TaskStatus>(dto.Status, true, out var status))
+        if (!Enum.TryParse<Status>(dto.Status, true, out var status))
         {
-            var valorevalidos = string.Join(", ", Enum.GetNames(typeof(TaskStatus)));
+            var valorevalidos = string.Join(", ", Enum.GetNames(typeof(Status)));
             return Results.BadRequest($"Status invalido. Valores permitidos: {valorevalidos}" );  
         }
         
